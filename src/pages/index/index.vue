@@ -43,13 +43,16 @@
         </el-menu>
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
+        <el-header
+          ><div class="head"><el-button type="primary" @click="bian">退出</el-button></div>
+          <div class="head">{{ list.username }}</div>
+        </el-header>
+
         <el-main>
           <!-- 面包屑导航 -->
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>{{ $route.name }}
-            </el-breadcrumb-item>
+            <el-breadcrumb-item>{{ $route.name }} </el-breadcrumb-item>
           </el-breadcrumb>
           <!-- 二级路由出口 -->
           <router-view />
@@ -60,21 +63,41 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
+  computed: {
+    ...mapGetters({
+      list: "user/list",
+    }),
+  },
   components: {},
   data() {
     return {};
   },
   methods: {
+    ...mapActions({
+      repuestcateList:'user/repuestcateList'
+    }),
+        // 退出
+    bian(){
+      this.repuestcateList({})
+      this.$router.push('/login')
+    },
+
+
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
+
+
   },
-  mounted() {},
-  computed: {},
+  mounted() {
+
+  },
+
   watch: {},
 };
 </script>
@@ -99,5 +122,8 @@ export default {
   color: #333;
   /* text-align: center; */
   line-height: 60px;
+}
+.head {
+  float: right;
 }
 </style>

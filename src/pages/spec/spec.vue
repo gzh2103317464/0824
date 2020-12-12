@@ -20,7 +20,7 @@ export default {
     return {
       info: {
         isShow: false,
-        title:'管理员管理',
+        title:'规格添加',
         isAdd:true
       },
     };
@@ -28,7 +28,7 @@ export default {
   methods: {
       willAda(){
           this.info.isShow = !this.info.isShow;
-          this.info.title='管理员管理',
+          this.info.title='规格添加',
           this.info.isAdd = true,
         this.$refs.one.empty()
       },

@@ -55,7 +55,6 @@ export default {
   computed: {
     ...mapGetters({
       roleList: "role/list",
-
     }),
   },
   components: {},
@@ -93,7 +92,7 @@ export default {
       reqUserAdd(this.form).then((res) => {});
       this.empty();
       this.hide();
-      this.requestUSerList();
+  this.requestUSerList()
     },
     ...mapActions({ 
       // repuestRoleList: "role/repuestRoleList",

@@ -75,10 +75,7 @@ export default new Router({
       path: '/login',
       component: login
     },
-    {
-      path: '/',
-      component: index
-    },
+   
     {
       path: '/index',
       component: index,
@@ -94,6 +91,16 @@ export default new Router({
         ...indexRouters
       ]
     },
+    {
+      path: '/',
+      component: login
+    },
+    {
+      path:'*',
+      redirect:'/index/home'
+    }
+
+
 
   ]
 })

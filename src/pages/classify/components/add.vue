@@ -102,8 +102,9 @@ export default {
       reqcateAdd(this.form).then((res) => {});
       this.empty();
       this.hide();
-      this.repuestcateList();
+       this.repuestcateList()
     },
+
     ...mapActions({
       repuestcateList: "cate/repuestcateList",
     }),
