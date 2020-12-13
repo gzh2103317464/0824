@@ -12,6 +12,7 @@
 import vAdd from "./components/add";
 import vList from "./components/list";
 export default {
+  
   components: {
     vAdd,
     vList,

@@ -14,19 +14,20 @@
             <i class="el-icon-menu"></i>
             <span slot="title">首页</span>
           </el-menu-item>
-          <el-submenu index="1">
-            <template slot="title">
-              <i class="el-icon-setting"></i>
-              <span>系统设置</span>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="/index/menu">菜单管理</el-menu-item>
-              <el-menu-item index="/index/role">角色管理</el-menu-item>
-              <el-menu-item index="/index/manger">管理员管理 </el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
 
-          <el-submenu index="3">
+          <div v-for="item in list.menus" :key="item.id">
+            <el-submenu :index="item.url" v-if='item.children'>
+              <template slot="title">
+                <i class="el-icon-setting"></i>
+                <span>{{item.title}}</span>
+              </template>
+              <el-menu-item-group>
+                <el-menu-item :index="'/index'+i.url" v-for="i in item.children" :key="i.id">{{i.title}}</el-menu-item>
+              </el-menu-item-group>
+            </el-submenu>
+            <el-menu-item v-else index="item.url">{{item.title}}</el-menu-item>
+          </div>
+          <!-- <el-submenu index="3">
             <template slot="title">
               <i class="el-icon-goods"></i>
               <span>商城管理</span>
@@ -39,12 +40,14 @@
               <el-menu-item index="/index/banner">轮播图管理 </el-menu-item>
               <el-menu-item index="/index/seckill">秒杀活动 </el-menu-item>
             </el-menu-item-group>
-          </el-submenu>
+          </el-submenu> -->
         </el-menu>
       </el-aside>
       <el-container>
         <el-header
-          ><div class="head"><el-button type="primary" @click="bian">退出</el-button></div>
+          ><div class="head">
+            <el-button type="primary" @click="bian">退出</el-button>
+          </div>
           <div class="head">{{ list.username }}</div>
         </el-header>
 
@@ -76,14 +79,13 @@ export default {
   },
   methods: {
     ...mapActions({
-      repuestcateList:'user/repuestcateList'
+      repuestcateList: "user/repuestcateList",
     }),
-        // 退出
-    bian(){
-      this.repuestcateList({})
-      this.$router.push('/login')
+    // 退出
+    bian() {
+      this.repuestcateList({});
+      this.$router.push("/login");
     },
-
 
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
@@ -91,12 +93,8 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-
-
   },
-  mounted() {
-
-  },
+  mounted() {},
 
   watch: {},
 };

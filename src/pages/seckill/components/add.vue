@@ -116,7 +116,6 @@ export default {
   data() {
     return {
       width: "160px",
-
       secondCate: [], // 二级分类
       secondPin: [], // 二级分类
 
@@ -152,12 +151,13 @@ export default {
           },
         ],
       },
+      
       value2: "",
 
       form: {
        title: "",
-          begintime: 0,
-          endtime: 0,
+          begintime: "value2[0]",
+          endtime: "value2[1]",
           first_cateid: 0,
           second_cateid: 0,
           goodsid:0,
@@ -235,8 +235,9 @@ export default {
     },
     // 修改
     update(id) {
-        reqgoodsEdit(this.form).then((res) => {
+        reqseckEdit(this.form).then((res) => {
           this.repuestgoodsList();
+          this.repuestseckList();
           this.hide();
         });
     },

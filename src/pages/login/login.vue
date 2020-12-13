@@ -37,7 +37,6 @@ export default {
         if (res.data.code == 200) {
         this.repuestcateList(res.data.list)
           this.$router.push("/index/home");
-           
         } else {
           alert(res.data.msg);
         }

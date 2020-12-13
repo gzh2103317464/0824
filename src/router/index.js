@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import store from '../store/index'
 
 Vue.use(Router)
 
@@ -28,7 +28,14 @@ export const indexRouters = [
   {
     path: 'role',
     component: role,
-    name: '角色管理'
+    name: '角色管理',
+    // beforeEnter: (to, from, next) => {
+    //   if(from.path == '/index/home'){
+    //     next()
+    //   }else{
+    //     next('/login')
+    //   }
+    // }
   },
   {
     path: 'manger',
@@ -69,38 +76,61 @@ export const indexRouters = [
 ]
 
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/login',
       component: login
     },
-   
+
     {
       path: '/index',
       component: index,
       children: [
         {
           path: 'home',
-          component: home
+          component: home,
+          // beforeEnter: (to, from, next) => {
+          //   // 这是判断是否从登录
+          //   if (from.path=='/login'&&store.state.user.list) {
+          //     next()
+          //   } else {
+          //     next('/login')
+
+          //   }
+          // }
         },
         {
           path: '',
-          component: home
+          redirect: "home"
         },
         ...indexRouters
       ]
     },
+    // {
+    //   path: '/',
+    //   component: login
+    // },
     {
-      path: '/',
-      component: login
-    },
-    {
-      path:'*',
-      redirect:'/index/home'
+      path: '*',
+      redirect: 'login'
     }
-
-
 
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.path == '/login') {
+    next()
+  }
+
+  // 去的不是登录，
+  if (store.state.user.list.menus) {
+    next()
+  }
+  //  else {
+  //   this.$router.push('/login')
+  // }
+})
+
+export default router
